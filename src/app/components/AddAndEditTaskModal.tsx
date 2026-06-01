@@ -39,6 +39,9 @@ interface ITaskData {
   checklistItems?: IChecklistItem[]; // Array of checklist items
   notes?: string;
   updatedBy?: string;
+  type?: 'task' | 'trip';
+  location?: string;
+  bookingRef?: string;
 }
 
 // These will be populated from the API
@@ -125,6 +128,9 @@ export default function AddOrEditTaskModal() {
               timeSpent: activeTask.timeSpent || 0,
               timeEstimate: activeTask.timeEstimate || undefined,
               checklistItems: activeTask.checklistItems || [],
+              type: activeTask.type || 'task',
+              location: activeTask.location || "",
+              bookingRef: activeTask.bookingRef || "",
             });
           }
         }
@@ -394,6 +400,45 @@ export default function AddOrEditTaskModal() {
               <p className="text-xs text-red-500 mt-1">Task title cannot be empty</p>
             )}
           </div>
+
+          {/* Task Type */}
+          <div>
+            <label htmlFor="taskType" className="text-sm font-medium text-gray-700">Type</label>
+            <select
+              id="taskType"
+              className="border border-gray-300 w-full p-3 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={taskData?.type || 'task'}
+              onChange={(e) => {
+                if (taskData) setTaskData({ ...taskData, type: e.target.value as 'task' | 'trip', updatedAt: new Date().toISOString() });
+              }}
+            >
+              <option value="task">Task</option>
+              <option value="trip">✈️ Trip</option>
+            </select>
+          </div>
+
+          {taskData?.type === 'trip' && (
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="text-sm font-medium text-gray-700">Location</label>
+                <input
+                  className="border border-gray-300 w-full p-3 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="e.g. Berlin"
+                  value={taskData?.location || ""}
+                  onChange={(e) => taskData && setTaskData({ ...taskData, location: e.target.value, updatedAt: new Date().toISOString() })}
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-gray-700">Booking ref</label>
+                <input
+                  className="border border-gray-300 w-full p-3 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="e.g. 287456"
+                  value={taskData?.bookingRef || ""}
+                  onChange={(e) => taskData && setTaskData({ ...taskData, bookingRef: e.target.value, updatedAt: new Date().toISOString() })}
+                />
+              </div>
+            </div>
+          )}
 
           {/* Description Field */}
           <div>

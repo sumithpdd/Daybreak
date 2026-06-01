@@ -95,6 +95,9 @@ export interface ITask {
   okrId?: string; // Optional link to an OKR
   keyResultId?: string; // Optional link to a specific key result within an OKR
   progress?: number; // Progress percentage (0-100) for tasks linked to key results
+  type?: 'task' | 'trip'; // Special task type (e.g. travel). Defaults to a normal task.
+  location?: string; // For trips
+  bookingRef?: string; // For trips
 }
 
 export interface IColumn {

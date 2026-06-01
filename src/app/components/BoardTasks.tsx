@@ -123,6 +123,15 @@ function SortableTask({
         }));
       }}
     >
+      {/* Trip badge */}
+      {task.type === 'trip' && (
+        <div className="mb-2">
+          <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-blue-700">
+            ✈️ Trip{task.location ? ` · ${task.location}` : ''}
+          </span>
+        </div>
+      )}
+
       {/* Tags */}
       {taskTags.length > 0 && (
         <div className="flex flex-wrap gap-1 mb-2">
