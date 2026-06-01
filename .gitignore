@@ -39,3 +39,6 @@ firebase-debug.log
 
 # claude code local overrides (keep shared .claude/settings.json tracked)
 .claude/settings.local.json
+
+# vercel
+.vercel

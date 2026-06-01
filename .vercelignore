@@ -1,0 +1,12 @@
+# Never upload secrets to the Vercel build
+*-firebase-adminsdk-*.json
+serviceAccountKey*.json
+.env
+.env*.local
+
+# Not needed at runtime
+data-migration
+docs
+.claude
+.github
+scripts
