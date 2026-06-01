@@ -39,16 +39,24 @@ export default function Sidebar() {
             (board: { [key: string]: any }, index: number) => {
               const { name, id } = board;
               const isActive = index === active; // Check if the board is active
+              const isShared = ((board.owners || []).length > 1) || ((board.members || []).length > 0);
               return (
                 <div
                   key={id}
                   onClick={() => handleNav(index, name)} // Handle navigation through boards on click
                   className={`${
                     isActive ? 'rounded-tr-full rounded-br-full bg-blue-500 text-white' : 'text-black'
-                  } cursor-pointer flex items-center 
-                  space-x-2 pl-[2.12rem] py-3 pb-3`}
+                  } cursor-pointer flex items-center justify-between gap-2 pl-[2.12rem] pr-4 py-3 pb-3`}
                 >
                   <p className="text-lg capitalize">{name}</p>
+                  <span
+                    className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
+                      isShared ? 'bg-blue-50 text-blue-700' : 'bg-gray-100 text-gray-500'
+                    }`}
+                    title={isShared ? 'Shared with others' : 'Personal board'}
+                  >
+                    {isShared ? '👥 Shared' : 'Personal'}
+                  </span>
                 </div>
               );
             }

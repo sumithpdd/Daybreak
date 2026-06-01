@@ -98,11 +98,33 @@
 :is(.app-dark, .dark-scope) .hover\:bg-gray-100:hover,
 :is(.app-dark, .dark-scope) .hover\:bg-gray-200:hover,
 :is(.app-dark, .dark-scope) .hover\:bg-stone-100:hover { background-color: #16233a !important; }
-.app-dark input,
-.app-dark textarea,
-.app-dark select { background-color: #111d31 !important; color: #f3f7ff !important; }
-.app-dark input::placeholder,
-.app-dark textarea::placeholder { color: #6b7689 !important; }
+:is(.app-dark, .dark-scope) input,
+:is(.app-dark, .dark-scope) textarea,
+:is(.app-dark, .dark-scope) select { background-color: #111d31 !important; color: #f3f7ff !important; }
+:is(.app-dark, .dark-scope) input::placeholder,
+:is(.app-dark, .dark-scope) textarea::placeholder { color: #6b7689 !important; }
+
+/* Dark-theme refinements: retheme light-blue tints to the azure accent so
+   highlights, badges, and category pills look native on dark. */
+:is(.app-dark, .dark-scope) .bg-blue-50,
+:is(.app-dark, .dark-scope) .bg-blue-100 { background-color: rgba(45, 156, 239, 0.14) !important; }
+:is(.app-dark, .dark-scope) .text-blue-700,
+:is(.app-dark, .dark-scope) .text-blue-600 { color: #5cb8ff !important; }
+:is(.app-dark, .dark-scope) .border-blue-200,
+:is(.app-dark, .dark-scope) .border-blue-300 { border-color: rgba(45, 156, 239, 0.5) !important; }
+:is(.app-dark, .dark-scope) .bg-purple-100 { background-color: rgba(139, 92, 246, 0.18) !important; }
+:is(.app-dark, .dark-scope) .text-purple-700 { color: #c4b5fd !important; }
+/* Card hover ring (the original shadow is invisible on dark). */
+:is(.app-dark, .dark-scope) .hover\:shadow-md:hover,
+:is(.app-dark, .dark-scope) .hover\:shadow-lg:hover {
+  box-shadow: 0 0 0 1px rgba(45, 156, 239, 0.45), 0 14px 30px -18px rgba(0, 0, 0, 0.9) !important;
+}
+:is(.app-dark, .dark-scope) input:focus,
+:is(.app-dark, .dark-scope) textarea:focus,
+:is(.app-dark, .dark-scope) select:focus {
+  border-color: #2d9cef !important;
+  outline: none;
+}
 
 /* Animated glow around the focus quote. */
 @keyframes borderPulse {

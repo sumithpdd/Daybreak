@@ -315,8 +315,16 @@ return (
               )}
             </div>
 
+            {/* Sharing */}
+            <div className="mt-6">
+              <p className="text-sm font-bold">Sharing</p>
+              <p className="text-xs text-gray-500">
+                Boards are personal by default. Add owners (can edit) or members (can view) by email to share.
+              </p>
+            </div>
+
             {/* Owners & Members */}
-            <div className="grid grid-cols-2 gap-4 mt-4">
+            <div className="grid grid-cols-2 gap-4 mt-3">
               <div>
                 <label className="text-sm">Owners (emails)</label>
                 <div className="pt-2">
