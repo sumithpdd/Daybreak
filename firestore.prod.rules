@@ -1,0 +1,26 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function authed() { return request.auth != null; }
+    function email() { return request.auth.token.email; }
+    match /boards/{boardId} {
+      allow read: if authed();
+      allow write: if authed() && (
+      resource.data.ownerId == email() ||
+      (resource.data.owners != null && email() in resource.data.owners)
+      );
+    }
+    match /users/{userId} { allow read, write: if authed(); }
+    match /tags/{tagId} { allow read, write: if authed(); }
+    match /okrs/{okrId} {
+      allow read: if authed() && resource.data.ownerId == email();
+      allow create: if authed();
+      allow update, delete: if authed() && resource.data.ownerId == email();
+    }
+    match /categories/{categoryId} {
+      allow read: if authed();
+      allow write: if authed(); // In the future, restrict to admins only
+    }
+    match /{document=**} { allow read: if authed(); }
+  }
+}

@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+/* Design tokens for the morning dashboard (Tailwind v4 theme). These generate
+   utilities like bg-night, text-accent, border-border, etc. */
+@theme {
+  --color-night: #070b14;
+  --color-surface: #0d1626;
+  --color-surface-2: #111d31;
+  --color-border: #1d2c44;
+  --color-accent: #2d9cef;
+  --color-accent-light: #5cb8ff;
+  --color-text-primary: #f3f7ff;
+  --color-text-muted: #8a97ab;
+
+  --font-sans: var(--font-montserrat), system-ui, sans-serif;
+}
+
+/* Textured dark background used on the morning landing page only, so the
+   kanban and OKR pages keep their light theme. */
+.morning-bg {
+  color: #f3f7ff;
+  background-color: #070b14;
+  background-image:
+    radial-gradient(900px circle at 80% 8%, rgba(45, 156, 239, 0.18), transparent 55%),
+    radial-gradient(700px circle at 12% 92%, rgba(45, 156, 239, 0.1), transparent 50%),
+    linear-gradient(180deg, #070b14 0%, #0a1120 100%);
+  background-attachment: fixed;
+  position: relative;
+}
+
+.morning-bg::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(rgba(45, 156, 239, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45, 156, 239, 0.045) 1px, transparent 1px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 56px 56px, 56px 56px, 160px 160px;
+}
+
+.morning-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Animated glow around the focus quote. */
+@keyframes borderPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 1px rgba(45, 156, 239, 0.3), 0 0 35px -12px rgba(45, 156, 239, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 0 1px rgba(92, 184, 255, 0.65), 0 0 65px -6px rgba(92, 184, 255, 0.8);
+  }
+}
+
+@keyframes blobPulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.96); }
+  50% { opacity: 0.85; transform: scale(1.05); }
+}
+
+@keyframes spinSlow {
+  to { transform: rotate(360deg); }
+}
+
+.animate-quote-glow { animation: borderPulse 4s ease-in-out infinite; }
+.animate-blob { animation: blobPulse 5s ease-in-out infinite; }
+
+.quote-ring::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 1.5rem;
+  padding: 2px;
+  background: conic-gradient(from 0deg, #2d9cef, #5cb8ff, #2d9cef, #1d6fd0, #2d9cef);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: spinSlow 7s linear infinite;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-quote-glow, .animate-blob, .quote-ring::before { animation: none; }
+}

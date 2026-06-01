@@ -1,0 +1,19 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAuthed() {
+      return request.auth != null;
+    }
+
+    // Development: Allow all reads and writes for easier testing
+    match /{document=**} {
+      allow read, write: if true;
+    }
+    
+    // OKRs collection (for reference, actual rule above allows all)
+    // In production, users can only access their own OKRs
+    match /okrs/{okrId} {
+      allow read, write: if true;
+    }
+  }
+}
