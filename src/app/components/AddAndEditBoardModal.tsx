@@ -42,6 +42,14 @@ let addBoardData = {
     },
   ],};
 
+// Board templates offered when creating a new board.
+const BOARD_TEMPLATES: { label: string; name?: string; columns: string[] }[] = [
+  { label: "Basic Kanban", columns: ["To Do", "In Progress", "Done"] },
+  { label: "Sprint", columns: ["Backlog", "To Do", "In Progress", "Review", "Done"] },
+  { label: "OKR Tasks", name: "OKR Tasks", columns: ["To Do", "In Progress", "Done"] },
+  { label: "Content Pipeline", name: "Content", columns: ["Ideas", "Drafting", "Editing", "Published"] },
+];
+
 export default function AddAndEditBoardModal() {
 
 //manage the board data state
@@ -165,6 +173,15 @@ const handleDeleteColumn = (index: number) => {
   }
 };
 
+// Apply a template: replaces columns (and name if not already set).
+const applyTemplate = (t: { label: string; name?: string; columns: string[] }) => {
+  setBoardData({
+    id: id(),
+    name: boardData?.name || t.name || "",
+    columns: t.columns.map((name) => ({ id: id(), name, tasks: [] })),
+  } as IBoardData);
+};
+
 // Handler for adding a new board to the database
 const handleAddNewBoardToDb = (e: React.FormEvent<HTMLButtonElement>) => {
   e.preventDefault();
@@ -252,6 +269,26 @@ return (
         <>
           {/* display the variant(title) of the modal */}
           <p className="text-lg font-bold">{modalVariant}</p>
+
+          {/* Template picker (new boards only) */}
+          {isVariantAdd && (
+            <div className="mt-3">
+              <p className="text-xs text-gray-500 mb-2">Start from a template</p>
+              <div className="flex flex-wrap gap-2">
+                {BOARD_TEMPLATES.map((t) => (
+                  <button
+                    key={t.label}
+                    type="button"
+                    onClick={() => applyTemplate(t)}
+                    className="rounded-full border border-stone-300 px-3 py-1 text-xs font-medium hover:bg-stone-100"
+                  >
+                    {t.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           <div className="py-6">
             <div>
               <label htmlFor="boardName" className="text-sm">

@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from "react";
-import { useFetchBoardsQuery, useMoveTaskMutation, useFetchUsersQuery, useFetchTagsQuery, useCreateBoardMutation, useGetCurrentUserQuery } from "@/redux/services/apiSlice";
+import { useFetchBoardsQuery, useMoveTaskMutation, useFetchUsersQuery, useFetchTagsQuery, useCreateBoardMutation, useGetCurrentUserQuery, useAddTaskMutation } from "@/redux/services/apiSlice";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { getCurrentBoardName, openAddAndEditBoardModal, openAddAndEditTaskModal, openDeleteBoardAndTaskModal, setCurrentBoardName } from "@/redux/features/appSlice";
 import { useSession } from '@/lib/session';
-import { MdEdit, MdDelete } from "react-icons/md";
+import { MdEdit, MdDelete, MdContentCopy } from "react-icons/md";
 import {
   DndContext,
   DragEndEvent,
@@ -24,20 +24,33 @@ import type { ITask, IColumn, IBoard, IUser, ITag } from "@/redux/services/apiSl
 import DOMPurify from 'isomorphic-dompurify';
 
 // Sortable Task Component
-function SortableTask({ 
-  task, 
-  taskIndex, 
-  columnName, 
-  users, 
-  tags 
-}: { 
-  task: ITask; 
-  taskIndex: number; 
+function SortableTask({
+  task,
+  taskIndex,
+  columnName,
+  users,
+  tags,
+  boardId,
+  columnId,
+}: {
+  task: ITask;
+  taskIndex: number;
   columnName: string;
   users: IUser[];
   tags: ITag[];
+  boardId: string;
+  columnId: string;
 }) {
   const dispatch = useAppDispatch();
+  const [addTask] = useAddTaskMutation();
+
+  const cloneTask = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!boardId) return;
+    const { id, createdAt, updatedAt, ...rest } = task;
+    void id; void createdAt; void updatedAt;
+    await addTask({ boardId, columnId, taskData: { ...rest, title: `Copy of ${task.title}` } });
+  };
   const {
     attributes,
     listeners,
@@ -242,6 +255,11 @@ function SortableTask({
           </div>
         </div>
         <div className="flex items-center space-x-1">
+          <MdContentCopy
+            onClick={cloneTask}
+            title="Duplicate task"
+            className="text-lg cursor-pointer text-gray-600 hover:text-green-600"
+          />
           <MdEdit
             onClick={(e) => {
               e.stopPropagation();
@@ -277,14 +295,16 @@ function SortableTask({
 }
 
 // Droppable Column Component
-function DroppableColumn({ 
-  column, 
-  users, 
-  tags 
-}: { 
+function DroppableColumn({
+  column,
+  users,
+  tags,
+  boardId,
+}: {
   column: IColumn;
   users: IUser[];
   tags: ITag[];
+  boardId: string;
 }) {
   const { id, name, tasks } = column;
   const { isOver, setNodeRef } = useDroppable({
@@ -335,6 +355,8 @@ function DroppableColumn({
                     columnName={column.name}
                     users={users}
                     tags={tags}
+                    boardId={boardId}
+                    columnId={column.id}
                   />
                 ));
               })()
@@ -673,11 +695,12 @@ export default function BoardTasks() {
             >
             <div className="flex space-x-6">
                 {columns.map((column) => (
-                  <DroppableColumn 
-                    key={column.id} 
-                    column={column} 
+                  <DroppableColumn
+                    key={column.id}
+                    column={column}
                     users={users}
                     tags={tags}
+                    boardId={currentBoard?.id || ''}
                   />
                 ))}
               {/* If the number of columns of tasks is less than 7, display an option to add more columns */}

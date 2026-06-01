@@ -24,6 +24,12 @@ export default function Home() {
           >
             📅 Calendar
           </Link>
+          <Link
+            href="/profile"
+            className="rounded-full border border-border bg-surface/70 px-4 py-1.5 text-sm font-semibold text-text-primary transition hover:border-accent/60"
+          >
+            👤 Profile
+          </Link>
         </nav>
         <Dashboard />
       </main>

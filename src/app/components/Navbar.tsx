@@ -79,15 +79,20 @@ export default function Navbar() {
 
         <div className="flex items-center space-x-4">
           {session ? (
-            <div className="flex items-center space-x-3">
+            <button
+              type="button"
+              onClick={() => router.push('/profile')}
+              title="Edit profile"
+              className="flex items-center space-x-3 rounded-lg px-2 py-1 transition hover:bg-gray-100"
+            >
               <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm font-medium">
                 {session.user?.name?.charAt(0).toUpperCase() || 'U'}
               </div>
-              <div>
+              <div className="text-left">
                 <p className="text-sm font-medium text-gray-900">{session.user?.name}</p>
                 <p className="text-xs text-gray-500">{session.user?.email}</p>
               </div>
-            </div>
+            </button>
           ) : (
             <div className="text-sm text-gray-500">
               {status === 'loading' ? 'Loading...' : 'Not signed in'}

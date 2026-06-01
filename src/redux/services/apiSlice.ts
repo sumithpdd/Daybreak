@@ -42,6 +42,18 @@ export interface IUser {
   createdAt: string;
   updatedAt: string;
   isApproved?: boolean;
+  // Profile fields
+  displayName?: string;
+  bio?: string;
+  city?: string;
+  country?: string;
+  experienceLevel?: 'Beginner' | 'Intermediate' | 'Advanced';
+  skills?: string[];
+  expertise?: string[];
+  interests?: string[];
+  linkedin?: string;
+  github?: string;
+  website?: string;
 }
 
 export interface ITag {
@@ -317,23 +329,23 @@ endpoints: (builder) => ({
           }
           const userEmail = session.user.email as string;
 
-                  // Personal single-user app: no approval gate, owners see their boards.
+                  // Scoped queries only: the security rules deny reading boards the
+                  // user does not own or share, so we must never read the whole
+                  // collection. Owned + co-owned + member boards, merged by id.
                   const ref = collection(db, "boards");
-          const q = query(ref, where("ownerId", "==", userEmail));
-          const querySnapshot = await getDocs(q);
-                  const ownedBoards = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as IBoard));
+                  const [ownedSnap, ownerSnap, memberSnap] = await Promise.all([
+                    getDocs(query(ref, where("ownerId", "==", userEmail))),
+                    getDocs(query(ref, where("owners", "array-contains", userEmail))),
+                    getDocs(query(ref, where("members", "array-contains", userEmail))),
+                  ]);
 
-                  // Also include boards where user is in owners[] or members[]
-                  const allBoardsSnapshot = await getDocs(ref);
-                  const sharedBoards: IBoard[] = allBoardsSnapshot.docs
-                    .map(d => ({ id: d.id, ...d.data() } as IBoard))
-            .filter(b => (b.owners || []).includes(userEmail) || (b.members || []).includes(userEmail));
-
-                  const merged = [...ownedBoards];
-                  for (const b of sharedBoards) {
-                    if (!merged.find(x => x.id === b.id)) merged.push(b);
+                  const byId = new Map<string, IBoard>();
+                  for (const snap of [ownedSnap, ownerSnap, memberSnap]) {
+                    for (const d of snap.docs) {
+                      byId.set(d.id, { id: d.id, ...d.data() } as IBoard);
+                    }
                   }
-                  return { data: merged };
+                  return { data: Array.from(byId.values()) };
         } catch (e) {
           console.error('❌ fetchBoards -', new Date().toISOString(), '- error:', e);
           return { error: e };

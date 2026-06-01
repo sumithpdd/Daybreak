@@ -3,24 +3,40 @@ service cloud.firestore {
   match /databases/{database}/documents {
     function authed() { return request.auth != null; }
     function email() { return request.auth.token.email; }
-    match /boards/{boardId} {
-      allow read: if authed();
-      allow write: if authed() && (
-      resource.data.ownerId == email() ||
-      (resource.data.owners != null && email() in resource.data.owners)
-      );
+
+    // Boards: only the owner, co-owners, or members can read or write.
+    function boardAllowed(data) {
+      return data.ownerId == email()
+        || (data.owners != null && email() in data.owners)
+        || (data.members != null && email() in data.members);
     }
-    match /users/{userId} { allow read, write: if authed(); }
-    match /tags/{tagId} { allow read, write: if authed(); }
+    match /boards/{boardId} {
+      allow read: if authed() && boardAllowed(resource.data);
+      allow create: if authed() && request.resource.data.ownerId == email();
+      allow update: if authed() && boardAllowed(resource.data)
+                    && request.resource.data.ownerId == resource.data.ownerId;
+      allow delete: if authed() && resource.data.ownerId == email();
+    }
+
+    // OKRs: strictly owned by the creating user.
     match /okrs/{okrId} {
       allow read: if authed() && resource.data.ownerId == email();
-      allow create: if authed();
+      allow create: if authed() && request.resource.data.ownerId == email();
       allow update, delete: if authed() && resource.data.ownerId == email();
     }
-    match /categories/{categoryId} {
+
+    // Users: anyone signed in can read profiles (for assignment and names),
+    // but you can only write a user document that carries your own email.
+    match /users/{userId} {
       allow read: if authed();
-      allow write: if authed(); // In the future, restrict to admins only
+      allow create, update: if authed() && request.resource.data.email == email();
+      allow delete: if false;
     }
-    match /{document=**} { allow read: if authed(); }
+
+    // Shared lookup collections (tags, categories) for signed-in users.
+    match /tags/{tagId} { allow read, write: if authed(); }
+    match /categories/{categoryId} { allow read, write: if authed(); }
+
+    // No catch-all: anything not matched above is denied by default.
   }
 }
