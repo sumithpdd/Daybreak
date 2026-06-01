@@ -4,7 +4,7 @@
 
 # Daybreak
 
-**Live:** https://daybreak-five.vercel.app
+**Live:** https://novo-daybreak.vercel.app
 
 A morning start page that grounds your workday, plus a full Kanban and OKR
 workspace behind it. Open it first thing for your date, top three priorities,
