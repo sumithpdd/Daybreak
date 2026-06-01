@@ -23,6 +23,11 @@ manage the work that follows.
   assignments, due dates, time tracking, checklists, and rich-text descriptions.
 - `/okrs` OKR management: objectives and key results with progress tracking,
   categories, statuses, and a list or Kanban view.
+- `/calendar` month grid of tasks by due date.
+- `/profile` manage your profile (name, bio, location, skills, links).
+
+Multi-tenant: each user signs in with Google and only sees their own boards,
+OKRs, and tasks. Boards can be shared with co-owners or members by email.
 
 ## Features
 

@@ -16,6 +16,12 @@ Routes:
 - `/board` Kanban: drag-and-drop tasks, tags, checklists, time tracking, rich text.
 - `/okrs` OKR management: objectives, key results, progress, categories.
 - `/calendar` month grid of tasks by due date.
+- `/profile` user profile management (saved to the users collection).
+
+Multi-tenant SaaS: users only access their own boards/OKRs/tasks (enforced by
+firestore.prod.rules). Boards support sharing via owners[]/members[]. The
+board/OKR/calendar pages and modals use the dark theme via `.app-dark` /
+`.dark-scope` scoped overrides in globals.css.
 
 ## Tech stack
 
