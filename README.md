@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="public/logo.svg" alt="Daybreak" width="280" />
+</p>
+
 # Daybreak
 
 A morning start page that grounds your workday, plus a full Kanban and OKR
