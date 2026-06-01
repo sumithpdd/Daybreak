@@ -4,6 +4,8 @@
 
 # Daybreak
 
+**Live:** https://daybreak-five.vercel.app
+
 A morning start page that grounds your workday, plus a full Kanban and OKR
 workspace behind it. Open it first thing for your date, top three priorities,
 a focus quote, and quick launch buttons, then move into your boards and
