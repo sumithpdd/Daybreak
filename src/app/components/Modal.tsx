@@ -25,10 +25,10 @@ export function Modal({ children, isOpen, onRequestClose }: ModalProps) {
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
       padding: "0px",
-      borderRadius: ".5rem",
+      borderRadius: ".75rem",
       width: "auto",
-      backgroundColor:  "#fff",
-      border: "none",
+      backgroundColor: "#0d1626",
+      border: "1px solid #1d2c44",
     },
   };
 
@@ -48,5 +48,5 @@ interface ModalBody {
 }
 
 export function ModalBody({ children }: ModalBody) {
-  return <form className="w-[24rem] md:w-[44rem] lg:w-[56rem] p-8">{children}</form>;
+  return <form className="dark-scope w-[24rem] md:w-[44rem] lg:w-[56rem] rounded-xl p-8">{children}</form>;
 }

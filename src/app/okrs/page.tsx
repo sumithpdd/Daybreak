@@ -5,7 +5,7 @@ import AddAndEditOKRModal from "../components/AddAndEditOKRModal";
 
 export default function OKRsPage() {
   return (
-    <div className="flex h-screen flex-col bg-white text-black">
+    <div className="app-dark flex h-screen flex-col">
       <Navbar />
       <div className="flex-1 overflow-y-auto">
         <OKRBoard />

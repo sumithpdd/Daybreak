@@ -63,6 +63,47 @@
   z-index: 1;
 }
 
+/* Dark theme for the kanban / OKR / calendar pages. Scoped overrides retheme
+   the common light surfaces so the whole app feels cohesive without rewriting
+   every component class. */
+.app-dark {
+  min-height: 100vh;
+  color: #f3f7ff;
+  background-color: #070b14;
+  background-image:
+    radial-gradient(900px circle at 85% -5%, rgba(45, 156, 239, 0.12), transparent 55%),
+    linear-gradient(180deg, #070b14 0%, #0a1120 100%);
+}
+/* Same overrides for portaled surfaces (modals) without the full-page bg. */
+.dark-scope { color: #f3f7ff; background-color: #0d1626; }
+:is(.app-dark, .dark-scope) .bg-white { background-color: #0d1626 !important; }
+:is(.app-dark, .dark-scope) .bg-gray-50,
+:is(.app-dark, .dark-scope) .bg-gray-100,
+:is(.app-dark, .dark-scope) .bg-stone-100,
+:is(.app-dark, .dark-scope) .bg-stone-200,
+:is(.app-dark, .dark-scope) .bg-stone-300 { background-color: #111d31 !important; }
+:is(.app-dark, .dark-scope) .text-black,
+:is(.app-dark, .dark-scope) .text-gray-900,
+:is(.app-dark, .dark-scope) .text-gray-800 { color: #f3f7ff !important; }
+:is(.app-dark, .dark-scope) .text-gray-700,
+:is(.app-dark, .dark-scope) .text-gray-600,
+:is(.app-dark, .dark-scope) .text-gray-500,
+:is(.app-dark, .dark-scope) .text-gray-400 { color: #8a97ab !important; }
+:is(.app-dark, .dark-scope) .border,
+:is(.app-dark, .dark-scope) .border-r-2,
+:is(.app-dark, .dark-scope) .border-stone-200,
+:is(.app-dark, .dark-scope) .border-stone-300,
+:is(.app-dark, .dark-scope) .border-gray-100,
+:is(.app-dark, .dark-scope) .border-gray-200 { border-color: #1d2c44 !important; }
+:is(.app-dark, .dark-scope) .hover\:bg-gray-100:hover,
+:is(.app-dark, .dark-scope) .hover\:bg-gray-200:hover,
+:is(.app-dark, .dark-scope) .hover\:bg-stone-100:hover { background-color: #16233a !important; }
+.app-dark input,
+.app-dark textarea,
+.app-dark select { background-color: #111d31 !important; color: #f3f7ff !important; }
+.app-dark input::placeholder,
+.app-dark textarea::placeholder { color: #6b7689 !important; }
+
 /* Animated glow around the focus quote. */
 @keyframes borderPulse {
   0%, 100% {

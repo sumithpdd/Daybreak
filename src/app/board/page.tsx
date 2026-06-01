@@ -13,7 +13,7 @@ export default function BoardPage() {
   const isTagManagementModalOpen = useAppSelector(getTagManagementModalValue);
 
   return (
-    <div className="flex h-screen flex-col bg-white text-black">
+    <div className="app-dark flex h-screen flex-col">
       <Navbar />
       <main className="flex flex-1 overflow-hidden">
         <Sidebar />

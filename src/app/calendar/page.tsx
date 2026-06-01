@@ -62,7 +62,7 @@ export default function CalendarPage() {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-white text-black">
+    <div className="app-dark flex h-screen flex-col">
       <Navbar />
       <div className="flex-1 overflow-y-auto p-6">
         <div className="mx-auto max-w-6xl">
