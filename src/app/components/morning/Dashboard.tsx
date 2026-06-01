@@ -6,6 +6,7 @@ import Quote from "./Quote";
 import Priorities from "./Priorities";
 import LaunchButtons from "./LaunchButtons";
 import AuthBar from "./AuthBar";
+import Logo from "./Logo";
 
 export default function Dashboard() {
   const [online, setOnline] = useState(true);
@@ -26,12 +27,7 @@ export default function Dashboard() {
     <div className="flex flex-col gap-8">
       <header className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="inline-block h-2.5 w-2.5 rounded-full bg-accent shadow-glow" />
-            <span className="text-sm font-semibold uppercase tracking-[0.25em] text-accent-light">
-              Daybreak
-            </span>
-          </div>
+          <Logo />
           <DateHeader />
         </div>
         <AuthBar online={online} />

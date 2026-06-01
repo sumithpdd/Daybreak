@@ -1,10 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112" fill="#070b14"/>
-  <circle cx="256" cy="300" r="92" fill="#2d9cef"/>
-  <g stroke="#5cb8ff" stroke-width="22" stroke-linecap="round">
-    <line x1="256" y1="150" x2="256" y2="110"/>
-    <line x1="152" y1="196" x2="124" y2="168"/>
-    <line x1="360" y1="196" x2="388" y2="168"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Daybreak">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c1a30"/>
+      <stop offset="1" stop-color="#070b14"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd27a"/>
+      <stop offset="0.5" stop-color="#5cb8ff"/>
+      <stop offset="1" stop-color="#2d9cef"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#2d9cef" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#2d9cef" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+
+  <!-- glow behind the sun -->
+  <circle cx="256" cy="286" r="170" fill="url(#glow)"/>
+
+  <!-- rays -->
+  <g stroke="#ffd27a" stroke-width="18" stroke-linecap="round" opacity="0.95">
+    <line x1="256" y1="150" x2="256" y2="112"/>
+    <line x1="345" y1="186" x2="372" y2="159"/>
+    <line x1="167" y1="186" x2="140" y2="159"/>
   </g>
-  <rect x="96" y="392" width="320" height="22" rx="11" fill="#5cb8ff"/>
+  <g stroke="#5cb8ff" stroke-width="18" stroke-linecap="round" opacity="0.9">
+    <line x1="392" y1="262" x2="430" y2="254"/>
+    <line x1="120" y1="262" x2="82" y2="254"/>
+  </g>
+
+  <!-- sun resting on the horizon -->
+  <circle cx="256" cy="286" r="92" fill="url(#sun)"/>
+
+  <!-- horizon -->
+  <rect x="92" y="368" width="328" height="22" rx="11" fill="#5cb8ff"/>
+  <rect x="150" y="410" width="212" height="16" rx="8" fill="#2d9cef" opacity="0.6"/>
 </svg>

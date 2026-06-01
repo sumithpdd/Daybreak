@@ -7,6 +7,7 @@ import { setCurrentBoardName, getCurrentBoardName, openAddAndEditTaskModal, open
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { useFetchBoardsQuery } from "@/redux/services/apiSlice";
 import { useSession, signIn, signOut } from '@/lib/session';
+import { SunMark } from './morning/Logo';
 
 export default function Navbar() {
   const [show, setShow] = useState<boolean>(false);
@@ -31,7 +32,8 @@ export default function Navbar() {
 
   return (
     <nav className="bg-white border flex h-20 shrink-0">
-      <div className="flex-none w-[18.75rem] border-r-2 flex items-center pl-[2.12rem]">
+      <div className="flex-none w-[18.75rem] border-r-2 flex items-center gap-2 pl-[2.12rem]">
+        <SunMark className="h-8 w-8" />
         <p className="font-bold text-2xl">Daybreak</p>
       </div>
 

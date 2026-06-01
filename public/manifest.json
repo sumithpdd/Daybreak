@@ -1,7 +1,7 @@
 {
   "name": "Daybreak",
   "short_name": "Daybreak",
-  "description": "A morning start page that grounds your workday before you launch into it.",
+  "description": "A morning start page plus a full Kanban and OKR workspace, grounded in your day.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#070b14",
@@ -12,6 +12,41 @@
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Boards",
+      "short_name": "Boards",
+      "description": "Open your Kanban boards",
+      "url": "/board",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "OKRs",
+      "short_name": "OKRs",
+      "description": "Track objectives and key results",
+      "url": "/okrs",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Calendar",
+      "short_name": "Calendar",
+      "description": "See tasks by due date",
+      "url": "/calendar",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
     }
   ]
 }
