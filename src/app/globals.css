@@ -12,7 +12,23 @@
   --color-text-primary: #f3f7ff;
   --color-text-muted: #8a97ab;
 
-  --font-sans: var(--font-montserrat), system-ui, sans-serif;
+  /* Original kanban/OKR palette so those pages match the source app. */
+  --color-main-purple: #635fc7;
+  --color-main-purple-hover: #a8a4ff;
+  --color-dark-grey: #2b2c37;
+  --color-medium-grey: #828fa3;
+  --color-light-grey: #f4f7fd;
+
+  /* Default font is Plus Jakarta Sans (kanban/OKR); the morning page overrides
+     to Montserrat below. */
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+}
+
+/* Morning page uses bold Montserrat. The descendant rule keeps it even on
+   elements that carry the font-sans utility. */
+.morning-bg,
+.morning-bg * {
+  font-family: var(--font-montserrat), system-ui, sans-serif;
 }
 
 /* Textured dark background used on the morning landing page only, so the

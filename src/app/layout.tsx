@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Providers } from "@/redux/provider";
 import { AuthProvider } from "./components/AuthProvider";
-import { Montserrat } from "next/font/google";
+import { Montserrat, Plus_Jakarta_Sans } from "next/font/google";
 import ServiceWorkerRegister from "./components/morning/ServiceWorkerRegister";
 import './globals.css'
 
@@ -9,6 +9,13 @@ const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-montserrat",
+});
+
+// Plus Jakarta Sans is the original kanban/OKR font; kept so those pages match
+// the source app, while the morning page uses Montserrat.
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-jakarta",
 });
 
 export const metadata: Metadata = {
@@ -29,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={montserrat.variable}>
+    <html lang="en" className={`${montserrat.variable} ${jakarta.variable}`}>
       <body className="font-sans antialiased min-h-screen">
         <AuthProvider>
           <Providers>

@@ -147,6 +147,14 @@ export default function OKRCard({
         )}
       </div>
 
+      {/* Audit history */}
+      <div className="text-[11px] text-gray-400 leading-tight mb-3">
+        <div>Owner: {okr.ownerId}</div>
+        <div>
+          Created {formatDate(okr.createdAt)} · Updated {formatDate(okr.updatedAt)}
+        </div>
+      </div>
+
       {/* Actions */}
       <div className="flex gap-2 pt-3 border-t border-gray-100">
         <button

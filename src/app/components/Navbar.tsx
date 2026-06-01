@@ -27,6 +27,7 @@ export default function Navbar() {
 
   const isOKRPage = pathname === '/okrs';
   const isBoardPage = pathname?.startsWith('/board');
+  const isCalendarPage = pathname === '/calendar';
 
   return (
     <nav className="bg-white border flex h-20 shrink-0">
@@ -58,6 +59,14 @@ export default function Navbar() {
               }`}
             >
               🎯 OKRs
+            </button>
+            <button
+              onClick={() => router.push('/calendar')}
+              className={`px-4 py-2 rounded-lg font-medium transition ${
+                isCalendarPage ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              📅 Calendar
             </button>
           </div>
 

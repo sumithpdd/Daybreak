@@ -156,6 +156,13 @@ function SortableTask({
         </div>
       )}
 
+      {/* Start Date */}
+      {task.startDate && (
+        <div className="text-xs mb-2 text-gray-500">
+          🟢 Start: {formatDate(task.startDate)}
+        </div>
+      )}
+
       {/* Due Date */}
       {task.dueDate && (
         <div className={`text-xs mb-2 ${isOverdue ? 'text-red-600 font-medium' : 'text-gray-500'}`}>
@@ -178,9 +185,6 @@ function SortableTask({
         )}
         {task.timeSpent && task.timeSpent > 0 && (
           <span>⏰ Spent: {formatTimeHours(task.timeSpent)}</span>
-        )}
-        {task.updatedBy && (
-          <span className="ml-auto text-[11px] text-gray-400">Updated by {task.updatedBy}</span>
         )}
       </div>
 
@@ -225,8 +229,17 @@ function SortableTask({
 
       {/* Action Buttons */}
       <div className="flex items-center justify-between mt-auto pt-2">
-        <div className="text-xs text-gray-400">
-          Updated {formatDate(task.updatedAt)}
+        <div className="text-[11px] text-gray-400 leading-tight">
+          {task.createdBy && (
+            <div>
+              Created by {task.createdBy}
+              {task.createdAt ? ` · ${formatDate(task.createdAt)}` : ""}
+            </div>
+          )}
+          <div>
+            Updated{task.updatedBy ? ` by ${task.updatedBy}` : ""} ·{" "}
+            {formatDate(task.updatedAt)}
+          </div>
         </div>
         <div className="flex items-center space-x-1">
           <MdEdit
