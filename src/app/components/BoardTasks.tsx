@@ -252,6 +252,7 @@ function SortableTask({
       {/* Action Buttons */}
       <div className="flex items-center justify-between mt-auto pt-2">
         <div className="text-[11px] text-gray-400 leading-tight">
+          <div className="font-mono text-gray-500" title={task.id}>ID: {task.id}</div>
           {task.createdBy && (
             <div>
               Created by {task.createdBy}

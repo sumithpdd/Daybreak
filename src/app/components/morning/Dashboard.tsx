@@ -8,6 +8,7 @@ import LaunchButtons from "./LaunchButtons";
 import AuthBar from "./AuthBar";
 import Logo from "./Logo";
 import TripsCard from "./TripsCard";
+import TodayTasksCard from "./TodayTasksCard";
 
 export default function Dashboard() {
   const [online, setOnline] = useState(true);
@@ -35,6 +36,8 @@ export default function Dashboard() {
       </header>
 
       <Quote text="Vision without execution is hallucination" />
+
+      <TodayTasksCard />
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
         <div className="lg:col-span-3">
