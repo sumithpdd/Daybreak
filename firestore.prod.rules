@@ -25,6 +25,13 @@ service cloud.firestore {
       allow update, delete: if authed() && resource.data.ownerId == email();
     }
 
+    // Trips: strictly owned by the creating user.
+    match /trips/{tripId} {
+      allow read: if authed() && resource.data.ownerId == email();
+      allow create: if authed() && request.resource.data.ownerId == email();
+      allow update, delete: if authed() && resource.data.ownerId == email();
+    }
+
     // Users: anyone signed in can read profiles (for assignment and names),
     // but you can only write a user document that carries your own email.
     match /users/{userId} {

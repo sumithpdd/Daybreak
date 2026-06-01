@@ -44,7 +44,12 @@ export default function Priorities() {
 
   const persistCloud = (next: Priority[]) => {
     if (!db || !user) return;
-    void setDoc(doc(db, "users", user.uid), { priorities: next }, { merge: true });
+    // Include email so the write satisfies the tightened user-doc rules.
+    void setDoc(
+      doc(db, "users", user.uid),
+      { email: user.email, priorities: next },
+      { merge: true }
+    );
   };
 
   const update = (next: Priority[]) => {

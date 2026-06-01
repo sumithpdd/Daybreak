@@ -126,6 +126,34 @@
   outline: none;
 }
 
+/* Semantic color tints: keep meaning (green=done, red=overdue, amber=warn)
+   but make them readable on dark instead of pale-on-pale. */
+:is(.app-dark, .dark-scope) .bg-green-50,
+:is(.app-dark, .dark-scope) .bg-green-100 { background-color: rgba(16, 185, 129, 0.18) !important; }
+:is(.app-dark, .dark-scope) .text-green-600,
+:is(.app-dark, .dark-scope) .text-green-700,
+:is(.app-dark, .dark-scope) .text-green-800 { color: #6ee7b7 !important; }
+:is(.app-dark, .dark-scope) .bg-red-50,
+:is(.app-dark, .dark-scope) .bg-red-100 { background-color: rgba(239, 68, 68, 0.18) !important; }
+:is(.app-dark, .dark-scope) .text-red-500,
+:is(.app-dark, .dark-scope) .text-red-600,
+:is(.app-dark, .dark-scope) .text-red-700 { color: #fca5a5 !important; }
+:is(.app-dark, .dark-scope) .bg-yellow-50,
+:is(.app-dark, .dark-scope) .bg-yellow-100,
+:is(.app-dark, .dark-scope) .bg-amber-50,
+:is(.app-dark, .dark-scope) .bg-amber-100 { background-color: rgba(245, 200, 80, 0.18) !important; }
+:is(.app-dark, .dark-scope) .text-yellow-700,
+:is(.app-dark, .dark-scope) .text-amber-700,
+:is(.app-dark, .dark-scope) .text-amber-800 { color: #fcd34d !important; }
+/* Any remaining default-dark text variants -> readable light. */
+:is(.app-dark, .dark-scope) .text-gray-300,
+:is(.app-dark, .dark-scope) .text-gray-200,
+:is(.app-dark, .dark-scope) .text-stone-600,
+:is(.app-dark, .dark-scope) .text-stone-500 { color: #8a97ab !important; }
+:is(.app-dark, .dark-scope) option { background-color: #111d31; color: #f3f7ff; }
+/* Dividers / hr lines. */
+:is(.app-dark, .dark-scope) hr { border-color: #1d2c44 !important; }
+
 /* Animated glow around the focus quote. */
 @keyframes borderPulse {
   0%, 100% {

@@ -152,10 +152,24 @@ export interface ICategory {
   updatedAt: string;
 }
 
+export interface ITrip {
+  id: string;
+  ownerId: string;        // user email
+  title: string;
+  type: 'personal' | 'work';
+  startDate: string;      // YYYY-MM-DD
+  endDate: string;        // YYYY-MM-DD
+  location?: string;
+  bookingRef?: string;
+  details?: string;       // freeform: flights, hotel, etc.
+  createdAt: string;
+  updatedAt: string;
+}
+
 export const fireStoreApi = createApi({
   reducerPath: "firestoreApi",
   baseQuery: fakeBaseQuery(),
-  tagTypes: ["Users", "Boards", "Tasks", "Tags", "OKRs", "Categories"],
+  tagTypes: ["Users", "Boards", "Tasks", "Tags", "OKRs", "Categories", "Trips"],
 endpoints: (builder) => ({
             // Users endpoints
     fetchUsers: builder.query<IUser[], void>({
@@ -752,6 +766,70 @@ endpoints: (builder) => ({
       },
       invalidatesTags: ["Categories"],
     }),
+
+    // Trips endpoints (owner-scoped travel)
+    fetchTrips: builder.query<ITrip[], void>({
+      async queryFn() {
+        try {
+          const session = await getSession();
+          if (!session?.user?.email) return { data: [] };
+          const ref = collection(db, "trips");
+          const q = query(ref, where("ownerId", "==", session.user.email), orderBy("startDate", "asc"));
+          const snap = await getDocs(q);
+          return { data: snap.docs.map((d) => ({ id: d.id, ...d.data() } as ITrip)) };
+        } catch (e) {
+          return { error: e };
+        }
+      },
+      providesTags: ["Trips"],
+    }),
+
+    createTrip: builder.mutation({
+      async queryFn(tripData: Omit<ITrip, 'id' | 'ownerId' | 'createdAt' | 'updatedAt'>) {
+        try {
+          const session = await getSession();
+          if (!session?.user?.email) return { error: "No user session" };
+          const now = new Date().toISOString();
+          const ref = await addDoc(collection(db, "trips"), {
+            ...cleanData(tripData),
+            ownerId: session.user.email,
+            createdAt: now,
+            updatedAt: now,
+          });
+          return { data: { id: ref.id } };
+        } catch (e) {
+          return { error: e };
+        }
+      },
+      invalidatesTags: ["Trips"],
+    }),
+
+    updateTrip: builder.mutation({
+      async queryFn({ tripId, tripData }: { tripId: string; tripData: Partial<ITrip> }) {
+        try {
+          await updateDoc(doc(db, "trips", tripId), {
+            ...cleanData(tripData),
+            updatedAt: new Date().toISOString(),
+          });
+          return { data: null };
+        } catch (e) {
+          return { error: e };
+        }
+      },
+      invalidatesTags: ["Trips"],
+    }),
+
+    deleteTrip: builder.mutation({
+      async queryFn(tripId: string) {
+        try {
+          await deleteDoc(doc(db, "trips", tripId));
+          return { data: null };
+        } catch (e) {
+          return { error: e };
+        }
+      },
+      invalidatesTags: ["Trips"],
+    }),
   }),
 });
 
@@ -780,4 +858,8 @@ export const {
   useCreateCategoryMutation,
   useUpdateCategoryMutation,
   useDeleteCategoryMutation,
+  useFetchTripsQuery,
+  useCreateTripMutation,
+  useUpdateTripMutation,
+  useDeleteTripMutation,
 } = fireStoreApi;

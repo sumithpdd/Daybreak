@@ -7,6 +7,7 @@ import Priorities from "./Priorities";
 import LaunchButtons from "./LaunchButtons";
 import AuthBar from "./AuthBar";
 import Logo from "./Logo";
+import TripsCard from "./TripsCard";
 
 export default function Dashboard() {
   const [online, setOnline] = useState(true);
@@ -43,6 +44,8 @@ export default function Dashboard() {
           <LaunchButtons />
         </div>
       </div>
+
+      <TripsCard />
 
     </div>
   );
