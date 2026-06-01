@@ -35,7 +35,7 @@ OKRs, and tasks. Boards can be shared with co-owners or members by email.
 - Kanban board with drag-and-drop (`@dnd-kit`), multiple boards and columns
 - OKR tracking with key results, progress bars, and status badges
 - Tasks linked to OKRs and key results, with checklists and time tracking
-- Rich-text task descriptions (TinyMCE), sanitised with DOMPurify
+- Rich-text task descriptions (Lexical), sanitised with DOMPurify
 - Real-time Firestore data with Redux Toolkit + RTK Query
 - Google sign-in via Firebase Authentication
 - Responsive, mobile-friendly Tailwind CSS UI
@@ -44,7 +44,7 @@ OKRs, and tasks. Boards can be shared with co-owners or members by email.
 ## Tech stack
 
 Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS v4, Redux Toolkit +
-RTK Query, Firebase (Auth + Firestore), `@dnd-kit`, TinyMCE, Montserrat.
+RTK Query, Firebase (Auth + Firestore), `@dnd-kit`, Lexical, Montserrat.
 
 ## Getting started
 

@@ -26,7 +26,7 @@ board/OKR/calendar pages and modals use the dark theme via `.app-dark` /
 ## Tech stack
 
 Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS v4, Redux Toolkit +
-RTK Query, Firebase (Auth + Firestore), @dnd-kit, TinyMCE, sharp (icon build).
+RTK Query, Firebase (Auth + Firestore), @dnd-kit, Lexical, sharp (icon build).
 
 ## Commands
 

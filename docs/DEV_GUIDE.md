@@ -15,7 +15,7 @@ Learn more
 - NextAuth (Google): https://authjs.dev/
 - Firestore: https://firebase.google.com/docs/firestore
 - dnd-kit: https://docs.dndkit.com/
-- TinyMCE: https://www.tiny.cloud/docs/
+- Lexical: https://www.tiny.cloud/docs/
 
 ## Flow (user → UI → data)
 1. User signs in (NextAuth). Session available in client via `useSession`

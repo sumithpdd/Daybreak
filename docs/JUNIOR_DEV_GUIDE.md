@@ -52,7 +52,7 @@ MyKanban is a **full-stack task management application** with two main features:
 
 ### Other Tools
 - **@dnd-kit**: Drag-and-drop library
-- **TinyMCE**: Rich text editor
+- **Lexical**: Rich text editor
 - **DOMPurify**: HTML sanitization (security)
 
 ---
@@ -207,8 +207,7 @@ NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
 NEXT_PUBLIC_FIREBASE_APP_ID=your-app-id
 NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your-measurement-id
 
-# TinyMCE (get free key at tiny.cloud)
-NEXT_PUBLIC_TINYMCE_API_KEY=your-tinymce-api-key
+# Lexical (get free key at tiny.cloud)
 ```
 
 **Generate NextAuth Secret**:

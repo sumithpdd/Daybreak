@@ -57,8 +57,7 @@ NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_measurement_id
 
-# TinyMCE
-NEXT_PUBLIC_TINYMCE_API_KEY=your_tinymce_api_key
+# Lexical
 ```
 
 **1.2: Test Production Build Locally**
@@ -124,7 +123,6 @@ In Vercel dashboard:
    - `NEXTAUTH_SECRET`
    - `NEXTAUTH_URL` (use: `https://your-project.vercel.app`)
    - All `NEXT_PUBLIC_FIREBASE_*` variables
-   - `NEXT_PUBLIC_TINYMCE_API_KEY`
 
 3. Click "Deploy"
 
